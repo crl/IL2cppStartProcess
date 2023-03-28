@@ -29,7 +29,7 @@ namespace Lavender.Systems
                 }
                 else
                 {
-                    ptr = StartExternalProcess.StartProcess(Directory.GetCurrentDirectory(), processPath + args);
+                    ptr = StartExternalProcess.Start(processPath, args,Directory.GetCurrentDirectory());
                     Debug.Log($"pid:{ptr}");
                 }
             }

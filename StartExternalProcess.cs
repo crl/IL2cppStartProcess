@@ -1,3 +1,4 @@
+#define UNITY_STANDALONE_WIN
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
 using System;
 using System.ComponentModel;
@@ -116,7 +117,7 @@ namespace Lavender.Systems
             INHERIT_PARENT_AFFINITY = 0x00010000
         }
 
-        public static uint Start(string path, string dir, bool hidden = false)
+        public static uint Start(string path,string parms, string dir, bool hidden = false)
         {
             ProcessCreationFlags flags = hidden ? ProcessCreationFlags.CREATE_NO_WINDOW : ProcessCreationFlags.NONE;
             STARTUPINFO startupinfo = new STARTUPINFO
@@ -124,7 +125,7 @@ namespace Lavender.Systems
                 cb = (uint)Marshal.SizeOf<STARTUPINFO>()
             };
             PROCESS_INFORMATION processinfo = new PROCESS_INFORMATION();
-            if (!CreateProcessW(null, path, IntPtr.Zero, IntPtr.Zero, false, flags, IntPtr.Zero, dir, ref startupinfo, ref processinfo))
+            if (!CreateProcessW(null, path+" "+parms, IntPtr.Zero, IntPtr.Zero, false, flags, IntPtr.Zero, dir, ref startupinfo, ref processinfo))
             {
                 throw new Win32Exception();
             }
